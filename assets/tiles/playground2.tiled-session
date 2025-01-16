@@ -1,0 +1,69 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Level-01.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Bridge_Wood.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 3.9287,
+            "scaleInEditor": 1
+        },
+        "Grass_Middle.tsx": {
+            "scaleInDock": 3.54,
+            "scaleInEditor": 1
+        },
+        "Level-01.tmx": {
+            "scale": 2.13,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 260.3286384976526,
+                "y": 315.25821596244134
+            }
+        },
+        "WaterTile.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "Water_Middle.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Water_Tile.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 3.54,
+            "scaleInEditor": 1
+        }
+    },
+    "last.externalTilesetPath": "/Users/de-souza-castror/Projects/personal/playground2/assets/tiles",
+    "last.imagePath": "/Users/de-souza-castror/Projects/personal/playground2/assets/images",
+    "map.height": 40,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 23,
+    "openFiles": [
+        "Grass_Middle.tsx",
+        "Level-01.tmx",
+        "Bridge_Wood.tsx"
+    ],
+    "project": "playground2.tiled-project",
+    "recentFiles": [
+        "Grass_Middle.tsx",
+        "Bridge_Wood.tsx",
+        "Level-01.tmx",
+        "Water_Tile.tsx",
+        "Water_Middle.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.useTransparentColor": false
+}
