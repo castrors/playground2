@@ -5,8 +5,6 @@ import 'package:flame/components.dart';
 
 class CollisionBlock extends PositionComponent {
   CollisionBlock({super.position, super.size});
-  @override
-  bool get debugMode => true;
 
   @override
   FutureOr<void> onLoad() {

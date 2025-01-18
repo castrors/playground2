@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:playground2/game/components/components.dart';
 import 'package:playground2/mixin/position_mixin.dart';
 import 'package:playground2/my_game.dart';
@@ -22,18 +23,19 @@ class Player extends PositionComponent
   bool hasSpacePressed = false;
   PositionComponent? holdableComponent;
   List<CollisionBlock> collisionBlocks = [];
+  bool isDialogVisible = false;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    debugMode = true;
+
     add(RectangleHitbox());
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    canvas.drawRect(size.toRect(), Paint()..color = Colors.brown);
+    canvas.drawRect(size.toRect(), Paint()..color = Colors.deepPurpleAccent);
   }
 
   @override
@@ -61,16 +63,62 @@ class Player extends PositionComponent
 
     try {
       if (isGooseAloneWithCorn()) {
-        print('Game Over - Goose is alone with Corn');
+        game.paused = true;
+        if (game.buildContext != null) {
+          final context = game.buildContext!;
+          showLoseDialog(context, message: 'Goose is alone with Corn');
+        }
       }
       if (isFoxAloneWithGoose()) {
-        print('Game Over - Fox is alone with Goose');
+        game.paused = true;
+        if (game.buildContext != null) {
+          final context = game.buildContext!;
+          showLoseDialog(context, message: 'Fox is alone with Goose');
+        }
+      }
+
+      if (isCornGooseFoxOnTop()) {
+        game.paused = true;
+        if (game.buildContext != null) {
+          final context = game.buildContext!;
+          GoRouter.of(context).go('/win');
+        }
       }
     } catch (e) {
       print('not assigned yet');
     }
 
     super.update(dt);
+  }
+
+  void showLoseDialog(BuildContext context, {required String message}) {
+    if (isDialogVisible) return;
+    isDialogVisible = true;
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('You Lose'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+                GoRouter.of(context).push('/play');
+              },
+              child: const Text('Try again'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+                GoRouter.of(context).go('/');
+              },
+              child: const Text('Quit'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -99,7 +147,7 @@ class Player extends PositionComponent
 
     if (hasSpacePressed) {
       if (holdableComponent != null) {
-        dropObject();
+        dropObject(horizontalDirection, verticalDirection);
       }
     }
 
@@ -139,10 +187,15 @@ class Player extends PositionComponent
     add(holdableComponent);
   }
 
-  void dropObject() {
+  void dropObject(int horizontalDirection, int verticalDirection) {
     if (holdableComponent != null) {
-      // holdableComponent!.removeFromParent();
-      holdableComponent!.position = position + Vector2(0, 32);
+      if (horizontalDirection == 0 && verticalDirection == 0) {
+        holdableComponent!.position = position + Vector2(0, 32);
+      } else {
+        holdableComponent!.position = position +
+            Vector2(horizontalDirection * -32, verticalDirection * -32);
+      }
+
       game.level.add(holdableComponent!);
 
       holdableComponent = null;
@@ -169,5 +222,9 @@ class Player extends PositionComponent
             game.fox.isOnBottom &&
             game.corn.isOnTop &&
             isOnTop);
+  }
+
+  bool isCornGooseFoxOnTop() {
+    return game.goose.isOnTop && game.fox.isOnTop && game.corn.isOnTop;
   }
 }

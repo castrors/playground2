@@ -1,6 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:playground2/bootstrap.dart';
-import 'package:playground2/my_game_widget.dart';
+import 'package:playground2/router.dart';
 
 void main() {
-  bootstrap(MyGameWidget.new);
+  bootstrap(
+    () => MaterialApp.router(
+      title: 'Corn-Goose-Fox',
+      routerConfig: router,
+    ),
+  );
 }
