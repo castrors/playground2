@@ -21,6 +21,12 @@ class MyGame extends FlameGame
   Future<void> onLoad() async {
     await super.onLoad();
 
+    await images.loadAll([
+      'corn.png',
+      'fox.png',
+      'goose.png',
+    ]);
+
     level = Level(player: player);
     add(level);
 
