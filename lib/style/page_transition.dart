@@ -27,6 +27,11 @@ CustomTransitionPage<T> buildPageTransition<T>({
 }
 
 class _PageReveal extends StatelessWidget {
+  _PageReveal({
+    required this.child,
+    required this.animation,
+    required this.color,
+  });
   final Widget child;
 
   final Animation<double> animation;
@@ -35,16 +40,10 @@ class _PageReveal extends StatelessWidget {
 
   final _slideTween = Tween(begin: const Offset(0, -1), end: Offset.zero);
 
-  final _fadeTween = TweenSequence([
-    TweenSequenceItem(tween: ConstantTween(0.0), weight: 1),
-    TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 1),
+  final _fadeTween = TweenSequence<double>([
+    TweenSequenceItem(tween: ConstantTween(0), weight: 1),
+    TweenSequenceItem(tween: Tween(begin: 0, end: 1), weight: 1),
   ]);
-
-  _PageReveal({
-    required this.child,
-    required this.animation,
-    required this.color,
-  });
 
   @override
   Widget build(BuildContext context) {

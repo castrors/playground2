@@ -3,11 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class WobblyButton extends StatefulWidget {
+  const WobblyButton({required this.child, super.key, this.onPressed});
   final Widget child;
 
   final VoidCallback? onPressed;
-
-  const WobblyButton({super.key, required this.child, this.onPressed});
 
   @override
   State<WobblyButton> createState() => _WobblyButtonState();
@@ -50,9 +49,8 @@ class _WobblyButtonState extends State<WobblyButton>
 }
 
 class _MySineTween extends Animatable<double> {
-  final double maxExtent;
-
   const _MySineTween(this.maxExtent);
+  final double maxExtent;
 
   @override
   double transform(double t) {

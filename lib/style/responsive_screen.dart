@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 /// main area, a smaller menu area, and a small area for a message on top.
 /// It works in both orientations on mobile- and tablet-sized screens.
 class ResponsiveScreen extends StatelessWidget {
+  const ResponsiveScreen({
+    required this.squarishMainArea,
+    required this.rectangularMenuArea,
+    this.topMessageArea = const SizedBox.shrink(),
+    super.key,
+  });
+
   /// This is the "hero" of the screen. It's more or less square, and will
   /// be placed in the visual "center" of the screen.
   final Widget squarishMainArea;
@@ -14,13 +21,6 @@ class ResponsiveScreen extends StatelessWidget {
 
   /// An area reserved for some static text close to the top of the screen.
   final Widget topMessageArea;
-
-  const ResponsiveScreen({
-    required this.squarishMainArea,
-    required this.rectangularMenuArea,
-    this.topMessageArea = const SizedBox.shrink(),
-    super.key,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class ResponsiveScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
