@@ -38,4 +38,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/main_character/
     - assets/tiles/

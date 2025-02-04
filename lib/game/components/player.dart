@@ -1,5 +1,8 @@
+// ignore_for_file: strict_raw_type
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -7,7 +10,12 @@ import 'package:playground2/game/components/components.dart';
 import 'package:playground2/mixin/position_mixin.dart';
 import 'package:playground2/my_game.dart';
 
-class Player extends PositionComponent
+enum PlayerState {
+  idle,
+  walking,
+}
+
+class Player extends SpriteAnimationGroupComponent
     with
         HasGameReference<MyGame>,
         KeyboardHandler,
@@ -15,6 +23,9 @@ class Player extends PositionComponent
         PositionToMapPosition {
   Player({super.position})
       : super(size: Vector2(32, 32), anchor: Anchor.center);
+
+  late final SpriteAnimation idleAnimation;
+  final double stepTime = 0.2;
 
   int horizontalDirection = 0;
   int verticalDirection = 0;
@@ -29,13 +40,10 @@ class Player extends PositionComponent
   Future<void> onLoad() async {
     await super.onLoad();
 
-    add(RectangleHitbox());
-  }
+    debugMode = true;
+    _loadAllAnimations();
 
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-    canvas.drawRect(size.toRect(), Paint()..color = Colors.deepPurpleAccent);
+    add(RectangleHitbox());
   }
 
   @override
@@ -89,6 +97,46 @@ class Player extends PositionComponent
     }
 
     super.update(dt);
+  }
+
+  void _loadAllAnimations() {
+    // idleAnimation = SpriteAnimation.fromFrameData(
+    //   game.images.fromCache('main_character/idle.png'),
+    //   SpriteAnimationData.sequenced(
+    //     amount: 4,
+    //     amountPerRow: 4,
+    //     stepTime: stepTime,
+    //     textureSize: Vector2(16, 16),
+    //     texturePosition: Vector2(0, 160),
+    //   ),
+    // );
+    final idleSpriteSheet = SpriteSheet(
+      image: game.images.fromCache('main_character/idle.png'),
+      srcSize: Vector2(13, 14),
+    );
+
+    final walkSpriteSheet = SpriteSheet(
+      image: game.images.fromCache('main_character/walk.png'),
+      srcSize: Vector2(13, 14),
+    );
+
+    idleAnimation = idleSpriteSheet.createAnimation(
+      row: 0,
+      stepTime: stepTime,
+      from: 0,
+      to: 4,
+    );
+
+    animations = {
+      PlayerState.idle: idleAnimation,
+      PlayerState.walking: walkSpriteSheet.createAnimation(
+        row: 0,
+        stepTime: stepTime,
+        from: 0,
+        to: 8,
+      ),
+    };
+    current = PlayerState.idle;
   }
 
   void showLoseDialog(BuildContext context, {required String message}) {
