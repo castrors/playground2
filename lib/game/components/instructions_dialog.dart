@@ -178,7 +178,7 @@ Remember:
             ),
             SizedBox(
               width: 30,
-              child: _currentPage != 1
+              child: _currentPage != 3
                   ? IconButton(
                       icon: const Icon(Icons.arrow_right),
                       onPressed: () {
