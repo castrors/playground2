@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flame/components.dart';
 
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flutter/foundation.dart';
 import 'package:playground2/game/components/collision_block.dart';
 import 'package:playground2/game/components/corn.dart';
 import 'package:playground2/game/components/fox.dart';
@@ -22,7 +24,12 @@ class Level extends World with HasGameRef<MyGame> {
 
   @override
   FutureOr<void> onLoad() async {
-    level = await TiledComponent.load('Level-01.tmx', Vector2.all(16));
+    level = await TiledComponent.load(
+      'Level-01.tmx',
+      Vector2.all(16),
+      useAtlas: !kIsWeb,
+      layerPaintFactory: (_) => _layerPaint(),
+    );
     add(level);
 
     final spawnPointsLayer = level.tileMap.getLayer<ObjectGroup>('SpawnPoints');
@@ -68,5 +75,11 @@ class Level extends World with HasGameRef<MyGame> {
     player.collisionBlocks = collisionBlocks;
 
     return super.onLoad();
+  }
+
+  Paint _layerPaint() {
+    return Paint()
+      ..isAntiAlias = false
+      ..filterQuality = FilterQuality.none;
   }
 }
