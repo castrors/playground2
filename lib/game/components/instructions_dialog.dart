@@ -1,5 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'package:flame/components.dart';
+import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 
 class InstructionsDialog extends StatefulWidget {
@@ -42,7 +44,7 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
             ),
             SizedBox(
               width: 350,
-              height: 100,
+              height: 200,
               child: PageView(
                 controller: _pageController,
                 onPageChanged: (int newPage) {
@@ -58,18 +60,14 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                         flex: 3,
                         child: SizedBox(
                           width: 100,
-                          height: 100,
-                          child:
-                              // SpriteAnimationWidget.asset(
-                              //   path: 'dash/dash_spritesheet.png',
-                              //   data: SpriteAnimationData.sequenced(
-                              //     amount: 3,
-                              //     stepTime: 0.15,
-                              //     textureSize: Vector2.all(16),
-                              //   ),
-                              // ),
-                              Container(
-                            color: Colors.green,
+                          height: 200,
+                          child: SpriteAnimationWidget.asset(
+                            path: 'main_character/walk.png',
+                            data: SpriteAnimationData.sequenced(
+                              amount: 8,
+                              stepTime: 0.15,
+                              textureSize: Vector2(13, 14),
+                            ),
                           ),
                         ),
                       ),
@@ -77,7 +75,40 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                       const Flexible(
                         flex: 7,
                         child: Text(
-                          'Tap/click on the screen to jump in that direction, tap again to double jump.',
+                          '''
+You have to cross all the objects from the south to the north using this bridge. You can only cross one object at a time. Press SPACE if you want to release the object.
+''',
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 4,
+                        child: SizedBox(
+                          width: 200,
+                          height: 100,
+                          child:
+                              // SpriteWidget.asset(path: 'enemies/obstacles.png'),
+                              SpriteAnimationWidget.asset(
+                            path: 'main_character/walk.png',
+                            data: SpriteAnimationData.sequenced(
+                              amount: 8,
+                              stepTime: 0.15,
+                              textureSize: Vector2(13, 14),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      const Flexible(
+                        flex: 6,
+                        child: Text(
+                          '''
+  Move around the map using the arrow keys or WASD.
+''',
                         ),
                       ),
                     ],
@@ -88,7 +119,11 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                       const Flexible(
                         flex: 7,
                         child: Text(
-                          'You have to save as many Konglomerats as possible to clear the level.',
+                          '''
+Remember:
+1) the fox cannot be alone with the goose, otherwise it will eat it;
+2) and the goose cannot be alone with the corn, otherwise it will eat it.
+''',
                         ),
                       ),
                       const SizedBox(width: 20),
@@ -97,17 +132,13 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                         child: SizedBox(
                           width: 60,
                           height: 60,
-                          child:
-                              // SpriteAnimationWidget.asset(
-                              //   path: 'ember.png',
-                              //   data: SpriteAnimationData.sequenced(
-                              //     amount: 4,
-                              //     stepTime: 0.15,
-                              //     textureSize: Vector2.all(16),
-                              //   ),
-                              // ),
-                              Container(
-                            color: Colors.red,
+                          child: SpriteAnimationWidget.asset(
+                            path: 'main_character/idle.png',
+                            data: SpriteAnimationData.sequenced(
+                              amount: 4,
+                              stepTime: 0.15,
+                              textureSize: Vector2(13, 14),
+                            ),
                           ),
                         ),
                       ),
@@ -123,8 +154,13 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                           height: 100,
                           child:
                               // SpriteWidget.asset(path: 'enemies/obstacles.png'),
-                              Container(
-                            color: Colors.blue,
+                              SpriteAnimationWidget.asset(
+                            path: 'main_character/idle.png',
+                            data: SpriteAnimationData.sequenced(
+                              amount: 4,
+                              stepTime: 0.15,
+                              textureSize: Vector2(13, 14),
+                            ),
                           ),
                         ),
                       ),
@@ -132,7 +168,7 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                       const Flexible(
                         flex: 6,
                         child: Text(
-                          'Watch out for these, they will make you drop your Konglomerats.',
+                          'Enjoy the game and have fun!',
                         ),
                       ),
                     ],
@@ -142,7 +178,7 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
             ),
             SizedBox(
               width: 30,
-              child: _currentPage != 2
+              child: _currentPage != 1
                   ? IconButton(
                       icon: const Icon(Icons.arrow_right),
                       onPressed: () {
