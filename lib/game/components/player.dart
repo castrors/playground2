@@ -1,4 +1,4 @@
-// ignore_for_file: strict_raw_type
+// ignore_for_file: strict_raw_type, avoid_redundant_argument_values
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -10,9 +10,20 @@ import 'package:playground2/game/components/components.dart';
 import 'package:playground2/mixin/position_mixin.dart';
 import 'package:playground2/my_game.dart';
 
+enum Direction {
+  left,
+  right,
+  up,
+  down,
+}
+
 enum PlayerState {
-  idle,
-  walking,
+  idleSide,
+  idleDown,
+  idleUp,
+  walkingSide,
+  walkingDown,
+  walkingUp,
 }
 
 class Player extends SpriteAnimationGroupComponent
@@ -24,8 +35,7 @@ class Player extends SpriteAnimationGroupComponent
   Player({super.position})
       : super(size: Vector2(32, 32), anchor: Anchor.center);
 
-  late final SpriteAnimation idleAnimation;
-  final double stepTime = 0.2;
+  final double stepTime = 0.15;
 
   int horizontalDirection = 0;
   int verticalDirection = 0;
@@ -35,21 +45,35 @@ class Player extends SpriteAnimationGroupComponent
   PositionComponent? holdableComponent;
   List<CollisionBlock> collisionBlocks = [];
   bool isDialogVisible = false;
+  Direction currentDirection = Direction.down;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    debugMode = true;
     _loadAllAnimations();
-
     add(RectangleHitbox());
+  }
+
+  void updateDirection() {
+    if (velocity.x > 0) {
+      currentDirection = Direction.right;
+      if (isFlippedHorizontally) {
+        flipHorizontally();
+      }
+    } else if (velocity.x < 0) {
+      currentDirection = Direction.left;
+      if (!isFlippedHorizontally) {
+        flipHorizontally();
+      }
+    } else if (velocity.y > 0) {
+      currentDirection = Direction.down;
+    } else if (velocity.y < 0) {
+      currentDirection = Direction.up;
+    }
   }
 
   @override
   void update(double dt) {
-    print(positionToMapPosition);
-
     velocity
       ..x = horizontalDirection * moveSpeed
       ..y = verticalDirection * moveSpeed;
@@ -68,6 +92,10 @@ class Player extends SpriteAnimationGroupComponent
     }
 
     position += velocity * dt;
+
+    updateDirection();
+
+    current = directionToAnimation(velocity: velocity);
 
     try {
       if (isGooseAloneWithCorn()) {
@@ -93,23 +121,13 @@ class Player extends SpriteAnimationGroupComponent
         }
       }
     } catch (e) {
-      print('not assigned yet');
+      debugPrint(e.toString());
     }
 
     super.update(dt);
   }
 
   void _loadAllAnimations() {
-    // idleAnimation = SpriteAnimation.fromFrameData(
-    //   game.images.fromCache('main_character/idle.png'),
-    //   SpriteAnimationData.sequenced(
-    //     amount: 4,
-    //     amountPerRow: 4,
-    //     stepTime: stepTime,
-    //     textureSize: Vector2(16, 16),
-    //     texturePosition: Vector2(0, 160),
-    //   ),
-    // );
     final idleSpriteSheet = SpriteSheet(
       image: game.images.fromCache('main_character/idle.png'),
       srcSize: Vector2(13, 14),
@@ -120,23 +138,82 @@ class Player extends SpriteAnimationGroupComponent
       srcSize: Vector2(13, 14),
     );
 
-    idleAnimation = idleSpriteSheet.createAnimation(
+    final idleAnimationSide = idleSpriteSheet.createAnimation(
       row: 0,
       stepTime: stepTime,
       from: 0,
       to: 4,
     );
 
+    final idleAnimationDown = idleSpriteSheet.createAnimation(
+      row: 0,
+      stepTime: stepTime,
+      from: 4,
+      to: 8,
+    );
+
+    final idleAnimationUp = idleSpriteSheet.createAnimation(
+      row: 0,
+      stepTime: stepTime,
+      from: 8,
+      to: 12,
+    );
+
+    final walkAnimationSide = walkSpriteSheet.createAnimation(
+      row: 0,
+      stepTime: stepTime,
+      from: 0,
+      to: 8,
+    );
+
+    final walkAnimationDown = walkSpriteSheet.createAnimation(
+      row: 0,
+      stepTime: stepTime,
+      from: 8,
+      to: 16,
+    );
+
+    final walkAnimationUp = walkSpriteSheet.createAnimation(
+      row: 0,
+      stepTime: stepTime,
+      from: 16,
+      to: 24,
+    );
+
     animations = {
-      PlayerState.idle: idleAnimation,
-      PlayerState.walking: walkSpriteSheet.createAnimation(
-        row: 0,
-        stepTime: stepTime,
-        from: 0,
-        to: 8,
-      ),
+      PlayerState.idleSide: idleAnimationSide,
+      PlayerState.idleDown: idleAnimationDown,
+      PlayerState.idleUp: idleAnimationUp,
+      PlayerState.walkingSide: walkAnimationSide,
+      PlayerState.walkingDown: walkAnimationDown,
+      PlayerState.walkingUp: walkAnimationUp,
     };
-    current = PlayerState.idle;
+  }
+
+  PlayerState directionToAnimation({required Vector2 velocity}) {
+    if (velocity.x == 0 && velocity.y == 0) {
+      switch (currentDirection) {
+        case Direction.left:
+          return PlayerState.idleSide;
+        case Direction.right:
+          return PlayerState.idleSide;
+        case Direction.up:
+          return PlayerState.idleUp;
+        case Direction.down:
+          return PlayerState.idleDown;
+      }
+    } else {
+      switch (currentDirection) {
+        case Direction.left:
+          return PlayerState.walkingSide;
+        case Direction.right:
+          return PlayerState.walkingSide;
+        case Direction.up:
+          return PlayerState.walkingUp;
+        case Direction.down:
+          return PlayerState.walkingDown;
+      }
+    }
   }
 
   void showLoseDialog(BuildContext context, {required String message}) {
