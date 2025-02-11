@@ -1,9 +1,5 @@
 name: Publish on github pages
 
-concurrency:
-  group: $-$
-  cancel-in-progress: true
-
 on:
   push:
     branches:
