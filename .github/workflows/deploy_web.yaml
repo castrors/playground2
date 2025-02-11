@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
+      - run: pwd
       - run: flutter build web --release -t lib/main_production.dart.dart
       - run: git config user.name github-actions
       - run: git config user.email github-actions@github.com
