@@ -61,7 +61,7 @@ class MainMenuScreen extends StatelessWidget {
             _gap,
             WobblyButton(
               onPressed: () {
-                context.read<SettingsModel>().toggleMusic();
+                context.read<SettingsModel>().toggleJoystick();
               },
               child: Text(
                 context.watch<SettingsModel>().isJoystickOn

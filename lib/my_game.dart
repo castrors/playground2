@@ -50,7 +50,9 @@ class MyGame extends FlameGame
       ),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
-    add(joystick);
+    if (joystickEnabled) {
+      add(joystick);
+    }
 
     final textPaint = TextPaint(
       style: const TextStyle(
