@@ -7,11 +7,10 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  audioplayers: ^6.1.0
   bloc: ^8.1.4
   equatable: ^2.0.5
-  flame: ^1.20.0
-  flame_audio: ^2.10.4
+  flame: 1.22.0
+  flame_audio: 2.1.8
   flame_behaviors: ^1.2.0
   flame_tiled: ^1.21.1
   flutter:
@@ -40,3 +39,4 @@ flutter:
     - assets/images/
     - assets/images/main_character/
     - assets/tiles/
+    - assets/audio/

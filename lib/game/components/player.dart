@@ -3,6 +3,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -100,6 +101,9 @@ class Player extends SpriteAnimationGroupComponent
     try {
       if (isGooseAloneWithCorn()) {
         game.paused = true;
+        if (game.playSounds) {
+          FlameAudio.play('lose.wav', volume: game.soundVolume);
+        }
         if (game.buildContext != null) {
           final context = game.buildContext!;
           showLoseDialog(context, message: 'Goose is alone with Corn');
@@ -107,6 +111,9 @@ class Player extends SpriteAnimationGroupComponent
       }
       if (isFoxAloneWithGoose()) {
         game.paused = true;
+        if (game.playSounds) {
+          FlameAudio.play('lose.wav', volume: game.soundVolume);
+        }
         if (game.buildContext != null) {
           final context = game.buildContext!;
           showLoseDialog(context, message: 'Fox is alone with Goose');
@@ -115,6 +122,9 @@ class Player extends SpriteAnimationGroupComponent
 
       if (isCornGooseFoxOnTop()) {
         game.paused = true;
+        if (game.playSounds) {
+          FlameAudio.play('win.wav', volume: game.soundVolume);
+        }
         if (game.buildContext != null) {
           final context = game.buildContext!;
           GoRouter.of(context).go('/win');
@@ -276,7 +286,7 @@ class Player extends SpriteAnimationGroupComponent
       }
     }
 
-    return true;
+    return false;
   }
 
   @override
@@ -305,6 +315,9 @@ class Player extends SpriteAnimationGroupComponent
 
   void pickUpObject(PositionComponent holdableComponent) {
     this.holdableComponent = holdableComponent;
+    if (game.playSounds) {
+      FlameAudio.play('collect.wav', volume: game.soundVolume);
+    }
     holdableComponent.position = Vector2(
       size.x / 2,
       size.y / 2,
@@ -314,6 +327,9 @@ class Player extends SpriteAnimationGroupComponent
 
   void dropObject(int horizontalDirection, int verticalDirection) {
     if (holdableComponent != null) {
+      if (game.playSounds) {
+        FlameAudio.play('drop.wav', volume: game.soundVolume);
+      }
       if (horizontalDirection == 0 && verticalDirection == 0) {
         holdableComponent!.position = position + Vector2(0, 32);
       } else {

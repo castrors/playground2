@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:playground2/game/components/components.dart';
 
 class MyGame extends FlameGame
@@ -14,6 +15,10 @@ class MyGame extends FlameGame
   static double gameHeight = 640;
   bool isGameOver = false;
   bool componentsLoaded = false;
+  bool playSounds = true;
+  bool playMusic = false;
+  bool playingMusic = false;
+  double soundVolume = 1;
 
   late final CameraComponent cam;
 
@@ -34,5 +39,10 @@ class MyGame extends FlameGame
     cam.viewfinder.anchor = Anchor.topLeft;
 
     add(cam..priority = -1);
+
+    if (!playingMusic && playMusic) {
+      await FlameAudio.bgm.play('music.mp3', volume: soundVolume);
+      playingMusic = true;
+    }
   }
 }
