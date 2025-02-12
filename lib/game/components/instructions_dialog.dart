@@ -76,7 +76,7 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                         flex: 7,
                         child: Text(
                           '''
-You have to cross all the objects from the south to the north using this bridge. You can only cross one object at a time. Press SPACE if you want to release the object.
+You have to cross all the objects from the south to the north using this bridge. You can only cross one object at a time. Press SPACE or click in the DROP button if you want to release the object.
 ''',
                         ),
                       ),
@@ -107,7 +107,7 @@ You have to cross all the objects from the south to the north using this bridge.
                         flex: 6,
                         child: Text(
                           '''
-  Move around the map using the arrow keys or WASD.
+  Move around the map using the arrow keys or WASD or the joystick.
 ''',
                         ),
                       ),

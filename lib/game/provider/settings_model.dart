@@ -9,10 +9,11 @@ class SettingsModel with ChangeNotifier {
   }
   bool _isMusicOn = true;
   bool _isSoundOn = true;
+  bool _isJoystickOn = true;
 
   bool get isMusicOn => _isMusicOn;
-
   bool get isSoundOn => _isSoundOn;
+  bool get isJoystickOn => _isJoystickOn;
 
   Future<void> toggleMusic() async {
     _isMusicOn = !_isMusicOn;
@@ -25,6 +26,11 @@ class SettingsModel with ChangeNotifier {
     FlameAudio.play(
       _isSoundOn ? 'collect.wav' : 'drop.wav',
     );
+    notifyListeners();
+  }
+
+  void toggleJoystick() {
+    _isJoystickOn = !_isJoystickOn;
     notifyListeners();
   }
 }

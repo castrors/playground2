@@ -37,7 +37,7 @@ class Level extends World with HasGameRef<MyGame> {
     for (final spawnPoint in spawnPointsLayer!.objects) {
       switch (spawnPoint.class_) {
         case 'Player':
-          final player = Player(position: Vector2(spawnPoint.x, spawnPoint.y));
+          player.position = Vector2(spawnPoint.x, spawnPoint.y);
           add(player);
         case 'Fox':
           final fox = Fox(position: Vector2(spawnPoint.x, spawnPoint.y));

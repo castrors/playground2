@@ -1,7 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playground2/game/components/instructions_dialog.dart';
 import 'package:playground2/game/dialog/how_to_play_dialog.dart';
 import 'package:playground2/game/provider/settings_model.dart';
 import 'package:playground2/my_game.dart';
@@ -18,6 +17,7 @@ class MyGameScreen extends StatelessWidget {
           game: MyGame(
             playMusic: context.read<SettingsModel>().isMusicOn,
             playSounds: context.read<SettingsModel>().isSoundOn,
+            joystickEnabled: context.read<SettingsModel>().isJoystickOn,
           ),
         ),
         Positioned(

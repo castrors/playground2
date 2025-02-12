@@ -58,7 +58,19 @@ class MainMenuScreen extends StatelessWidget {
                     fontSize: 16, color: Colors.teal.shade800),
               ),
             ),
-
+            _gap,
+            WobblyButton(
+              onPressed: () {
+                context.read<SettingsModel>().toggleMusic();
+              },
+              child: Text(
+                context.watch<SettingsModel>().isJoystickOn
+                    ? 'Joystick: On'
+                    : 'Joystick: Off',
+                style: GoogleFonts.pressStart2p(
+                    fontSize: 14, color: Colors.teal.shade800),
+              ),
+            ),
             _gap,
             WobblyButton(
               onPressed: () {
