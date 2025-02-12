@@ -2,7 +2,10 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playground2/game/components/instructions_dialog.dart';
+import 'package:playground2/game/dialog/how_to_play_dialog.dart';
+import 'package:playground2/game/provider/settings_model.dart';
 import 'package:playground2/my_game.dart';
+import 'package:provider/provider.dart';
 
 class MyGameScreen extends StatelessWidget {
   const MyGameScreen({super.key});
@@ -11,7 +14,12 @@ class MyGameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GameWidget(game: MyGame()),
+        GameWidget(
+          game: MyGame(
+            playMusic: context.read<SettingsModel>().isMusicOn,
+            playSounds: context.read<SettingsModel>().isSoundOn,
+          ),
+        ),
         Positioned(
           right: 16,
           child: Row(
@@ -21,23 +29,7 @@ class MyGameScreen extends StatelessWidget {
                 icon: const Icon(Icons.info),
                 iconSize: 36,
                 onPressed: () {
-                  showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content:
-                            const IntrinsicHeight(child: InstructionsDialog()),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Close'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  HowToPlayDialog.show(context);
                 },
               ),
               IconButton(

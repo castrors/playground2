@@ -1,8 +1,12 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:playground2/game/dialog/how_to_play_dialog.dart';
+import 'package:playground2/game/provider/settings_model.dart';
 import 'package:playground2/style/responsive_screen.dart';
 import 'package:playground2/style/wobbly_button.dart';
+import 'package:provider/provider.dart';
 
 class MainMenuScreen extends StatelessWidget {
   const MainMenuScreen({super.key});
@@ -34,6 +38,7 @@ class MainMenuScreen extends StatelessWidget {
           children: [
             WobblyButton(
               onPressed: () {
+                FlameAudio.play('collect.wav');
                 GoRouter.of(context).go('/play');
               },
               child: Text(
@@ -43,11 +48,49 @@ class MainMenuScreen extends StatelessWidget {
               ),
             ),
             _gap,
+            WobblyButton(
+              onPressed: () {
+                HowToPlayDialog.show(context);
+              },
+              child: Text(
+                'How to play',
+                style: GoogleFonts.pressStart2p(
+                    fontSize: 16, color: Colors.teal.shade800),
+              ),
+            ),
+
+            _gap,
+            WobblyButton(
+              onPressed: () {
+                context.read<SettingsModel>().toggleMusic();
+              },
+              child: Text(
+                context.watch<SettingsModel>().isMusicOn
+                    ? 'Music: On'
+                    : 'Music: Off',
+                style: GoogleFonts.pressStart2p(
+                    fontSize: 14, color: Colors.teal.shade800),
+              ),
+            ),
+            _gap,
+            WobblyButton(
+              onPressed: () {
+                context.read<SettingsModel>().toggleSound();
+              },
+              child: Text(
+                context.watch<SettingsModel>().isSoundOn
+                    ? 'Sfx: On'
+                    : 'Sfx: Off',
+                style: GoogleFonts.pressStart2p(
+                    fontSize: 14, color: Colors.teal.shade800),
+              ),
+            ),
             // WobblyButton(
             //   onPressed: () => GoRouter.of(context).push('/settings'),
             //   child: const Text('Settings'),
             // ),
-            // _gap,
+            _gap,
+            _gap,
             const Text('Built with ❤️ by the Orcs Team'),
           ],
         ),

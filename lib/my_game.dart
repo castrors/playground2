@@ -6,6 +6,11 @@ import 'package:playground2/game/components/components.dart';
 
 class MyGame extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
+  MyGame({required this.playMusic, required this.playSounds});
+
+  final bool playMusic;
+  final bool playSounds;
+
   final player = Player();
   late Fox fox;
   late Goose goose;
@@ -15,8 +20,7 @@ class MyGame extends FlameGame
   static double gameHeight = 640;
   bool isGameOver = false;
   bool componentsLoaded = false;
-  bool playSounds = true;
-  bool playMusic = false;
+
   bool playingMusic = false;
   double soundVolume = 1;
 
@@ -40,9 +44,9 @@ class MyGame extends FlameGame
 
     add(cam..priority = -1);
 
-    if (!playingMusic && playMusic) {
-      await FlameAudio.bgm.play('music.mp3', volume: soundVolume);
-      playingMusic = true;
-    }
+    // if (!playingMusic && playMusic) {
+    //   await FlameAudio.bgm.play('music.mp3', volume: soundVolume);
+    //   playingMusic = true;
+    // }
   }
 }

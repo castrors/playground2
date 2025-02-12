@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:playground2/game/provider/settings_model.dart';
+import 'package:provider/provider.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -27,5 +29,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   // Add cross-flavor configuration here
 
-  runApp(MaterialApp(home: await builder()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SettingsModel(),
+      child: MaterialApp(home: await builder()),
+    ),
+  );
 }
