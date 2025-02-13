@@ -1,7 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:playground2/mixin/position_mixin.dart';
-import 'package:playground2/my_game.dart';
+import 'package:the_crossing_puzzle/mixin/position_mixin.dart';
+import 'package:the_crossing_puzzle/my_game.dart';
 
 class Fox extends SpriteComponent
     with HasGameReference<MyGame>, PositionToMapPosition {

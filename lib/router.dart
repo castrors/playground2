@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playground2/lose/lose_screen.dart';
-import 'package:playground2/main_menu/main_menu_screen.dart';
-import 'package:playground2/my_game_screen.dart';
-import 'package:playground2/win/win_screen.dart';
+import 'package:the_crossing_puzzle/lose/lose_screen.dart';
+import 'package:the_crossing_puzzle/main_menu/main_menu_screen.dart';
+import 'package:the_crossing_puzzle/my_game_screen.dart';
+import 'package:the_crossing_puzzle/win/win_screen.dart';
 
 final router = GoRouter(
   routes: [

@@ -1,4 +1,4 @@
-name: playground2
+name: the_crossing_puzzle
 
 concurrency:
   group: $-$

@@ -1,4 +1,4 @@
-package com.example.verygoodcore.playground2
+package io.github.castrors.the_crossing_puzzle
 
 import io.flutter.embedding.android.FlutterActivity
 

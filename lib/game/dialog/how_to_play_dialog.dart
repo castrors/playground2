@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playground2/game/components/instructions_dialog.dart';
+import 'package:the_crossing_puzzle/game/components/instructions_dialog.dart';
 
 class HowToPlayDialog {
   static void show(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playground2/style/responsive_screen.dart';
-import 'package:playground2/style/wobbly_button.dart';
+import 'package:the_crossing_puzzle/style/responsive_screen.dart';
+import 'package:the_crossing_puzzle/style/wobbly_button.dart';
 
 class LoseScreen extends StatelessWidget {
   const LoseScreen({super.key});

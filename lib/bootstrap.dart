@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:playground2/game/provider/settings_model.dart';
 import 'package:provider/provider.dart';
+import 'package:the_crossing_puzzle/game/provider/settings_model.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override

@@ -5,12 +5,12 @@ import 'package:flame/components.dart';
 
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/foundation.dart';
-import 'package:playground2/game/components/collision_block.dart';
-import 'package:playground2/game/components/corn.dart';
-import 'package:playground2/game/components/fox.dart';
-import 'package:playground2/game/components/goose.dart';
-import 'package:playground2/game/components/player.dart';
-import 'package:playground2/my_game.dart';
+import 'package:the_crossing_puzzle/game/components/collision_block.dart';
+import 'package:the_crossing_puzzle/game/components/corn.dart';
+import 'package:the_crossing_puzzle/game/components/fox.dart';
+import 'package:the_crossing_puzzle/game/components/goose.dart';
+import 'package:the_crossing_puzzle/game/components/player.dart';
+import 'package:the_crossing_puzzle/my_game.dart';
 
 class Level extends World with HasGameRef<MyGame> {
   Level({required this.player});

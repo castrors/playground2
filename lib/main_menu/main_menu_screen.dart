@@ -2,11 +2,11 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:playground2/game/dialog/how_to_play_dialog.dart';
-import 'package:playground2/game/provider/settings_model.dart';
-import 'package:playground2/style/responsive_screen.dart';
-import 'package:playground2/style/wobbly_button.dart';
 import 'package:provider/provider.dart';
+import 'package:the_crossing_puzzle/game/dialog/how_to_play_dialog.dart';
+import 'package:the_crossing_puzzle/game/provider/settings_model.dart';
+import 'package:the_crossing_puzzle/style/responsive_screen.dart';
+import 'package:the_crossing_puzzle/style/wobbly_button.dart';
 
 class MainMenuScreen extends StatelessWidget {
   const MainMenuScreen({super.key});

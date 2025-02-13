@@ -1,4 +1,4 @@
-import 'package:playground2/game/components/components.dart';
+import 'package:the_crossing_puzzle/game/components/components.dart';
 
 bool checkCollisions(Player player, CollisionBlock block) {
   final playerX = player.position.x;

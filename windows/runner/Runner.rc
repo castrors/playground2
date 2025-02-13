@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example.verygoodcore.playground2" "\0"
-            VALUE "FileDescription", "playground2" "\0"
+            VALUE "FileDescription", "The Crossing Puzzle" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "playground2" "\0"
+            VALUE "InternalName", "The Crossing Puzzle" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example.verygoodcore.playground2. All rights reserved." "\0"
             VALUE "OriginalFilename", "playground2.exe" "\0"
-            VALUE "ProductName", "Playground2" "\0"
+            VALUE "ProductName", "The Crossing Puzzle" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

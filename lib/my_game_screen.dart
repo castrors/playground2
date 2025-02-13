@@ -1,10 +1,10 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playground2/game/dialog/how_to_play_dialog.dart';
-import 'package:playground2/game/provider/settings_model.dart';
-import 'package:playground2/my_game.dart';
 import 'package:provider/provider.dart';
+import 'package:the_crossing_puzzle/game/dialog/how_to_play_dialog.dart';
+import 'package:the_crossing_puzzle/game/provider/settings_model.dart';
+import 'package:the_crossing_puzzle/my_game.dart';
 
 class MyGameScreen extends StatelessWidget {
   const MyGameScreen({super.key});

@@ -7,9 +7,9 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playground2/game/components/components.dart';
-import 'package:playground2/mixin/position_mixin.dart';
-import 'package:playground2/my_game.dart';
+import 'package:the_crossing_puzzle/game/components/components.dart';
+import 'package:the_crossing_puzzle/mixin/position_mixin.dart';
+import 'package:the_crossing_puzzle/my_game.dart';
 
 enum Direction {
   left,
