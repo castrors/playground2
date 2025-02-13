@@ -40,8 +40,8 @@ class Player extends SpriteAnimationGroupComponent
 
   final double stepTime = 0.15;
 
-  int horizontalDirection = 0;
-  int verticalDirection = 0;
+  int horizontalDirectionFromKeyboard = 0;
+  int verticalDirectionFromKeyboard = 0;
   final Vector2 velocity = Vector2.zero();
   final double moveSpeed = 200;
   bool hasSpacePressed = false;
@@ -49,6 +49,7 @@ class Player extends SpriteAnimationGroupComponent
   List<CollisionBlock> collisionBlocks = [];
   bool isDialogVisible = false;
   Direction currentDirection = Direction.down;
+  bool isMovingWithJoystick = true;
 
   @override
   Future<void> onLoad() async {
@@ -77,9 +78,24 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   void update(double dt) {
-    if (game.joystickEnabled) {
-      horizontalDirection = game.joystick.relativeDelta.x.round();
-      verticalDirection = game.joystick.relativeDelta.y.round();
+    var horizontalDirection = 0;
+    var verticalDirection = 0;
+
+    if (game.joystickEnabled && !game.joystick.delta.isZero()) {
+      if (game.joystick.isDragged) {
+        horizontalDirection = game.joystick.relativeDelta.x.round();
+        verticalDirection = game.joystick.relativeDelta.y.round();
+      } else {
+        horizontalDirection = 0;
+        verticalDirection = 0;
+      }
+      if (!isMovingWithJoystick) {
+        isMovingWithJoystick = true;
+        changeJoystickOpacity(0.8, 0.5);
+      }
+    } else {
+      horizontalDirection = horizontalDirectionFromKeyboard;
+      verticalDirection = verticalDirectionFromKeyboard;
     }
 
     velocity
@@ -265,31 +281,40 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    horizontalDirection = 0;
-    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyA) ||
-            keysPressed.contains(LogicalKeyboardKey.arrowLeft))
-        ? -1
-        : 0;
-    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyD) ||
-            keysPressed.contains(LogicalKeyboardKey.arrowRight))
-        ? 1
-        : 0;
+    if (isMovingWithJoystick) {
+      isMovingWithJoystick = false;
+      changeJoystickOpacity(0.3, 0.2);
+    }
+    horizontalDirectionFromKeyboard = 0;
+    horizontalDirectionFromKeyboard +=
+        (keysPressed.contains(LogicalKeyboardKey.keyA) ||
+                keysPressed.contains(LogicalKeyboardKey.arrowLeft))
+            ? -1
+            : 0;
+    horizontalDirectionFromKeyboard +=
+        (keysPressed.contains(LogicalKeyboardKey.keyD) ||
+                keysPressed.contains(LogicalKeyboardKey.arrowRight))
+            ? 1
+            : 0;
 
-    verticalDirection = 0;
-    verticalDirection += (keysPressed.contains(LogicalKeyboardKey.keyW) ||
-            keysPressed.contains(LogicalKeyboardKey.arrowUp))
-        ? -1
-        : 0;
-    verticalDirection += (keysPressed.contains(LogicalKeyboardKey.keyS) ||
-            keysPressed.contains(LogicalKeyboardKey.arrowDown))
-        ? 1
-        : 0;
+    verticalDirectionFromKeyboard = 0;
+    verticalDirectionFromKeyboard +=
+        (keysPressed.contains(LogicalKeyboardKey.keyW) ||
+                keysPressed.contains(LogicalKeyboardKey.arrowUp))
+            ? -1
+            : 0;
+    verticalDirectionFromKeyboard +=
+        (keysPressed.contains(LogicalKeyboardKey.keyS) ||
+                keysPressed.contains(LogicalKeyboardKey.arrowDown))
+            ? 1
+            : 0;
 
     hasSpacePressed = keysPressed.contains(LogicalKeyboardKey.space);
 
     if (hasSpacePressed) {
       if (holdableComponent != null) {
-        dropObject(horizontalDirection, verticalDirection);
+        dropObject(
+            horizontalDirectionFromKeyboard, verticalDirectionFromKeyboard);
       }
     }
 
@@ -380,5 +405,16 @@ class Player extends SpriteAnimationGroupComponent
 
   bool isCornGooseFoxOnTop() {
     return game.goose.isOnTop && game.fox.isOnTop && game.corn.isOnTop;
+  }
+
+  void changeJoystickOpacity(double knobOpacity, double backgroundOpacity) {
+    final knob = game.joystick.knob as CircleComponent?;
+    final background = game.joystick.background as CircleComponent?;
+
+    if (knob != null && background != null) {
+      knob.paint.color = knob.paint.color.withOpacity(knobOpacity);
+      background.paint.color =
+          background.paint.color.withOpacity(backgroundOpacity);
+    }
   }
 }
