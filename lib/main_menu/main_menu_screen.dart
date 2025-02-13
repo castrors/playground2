@@ -55,20 +55,9 @@ class MainMenuScreen extends StatelessWidget {
               child: Text(
                 'How to play',
                 style: GoogleFonts.pressStart2p(
-                    fontSize: 16, color: Colors.teal.shade800),
-              ),
-            ),
-            _gap,
-            WobblyButton(
-              onPressed: () {
-                context.read<SettingsModel>().toggleJoystick();
-              },
-              child: Text(
-                context.watch<SettingsModel>().isJoystickOn
-                    ? 'Joystick: On'
-                    : 'Joystick: Off',
-                style: GoogleFonts.pressStart2p(
-                    fontSize: 14, color: Colors.teal.shade800),
+                  fontSize: 16,
+                  color: Colors.teal.shade800,
+                ),
               ),
             ),
             _gap,
@@ -81,7 +70,9 @@ class MainMenuScreen extends StatelessWidget {
                     ? 'Music: On'
                     : 'Music: Off',
                 style: GoogleFonts.pressStart2p(
-                    fontSize: 14, color: Colors.teal.shade800),
+                  fontSize: 14,
+                  color: Colors.teal.shade800,
+                ),
               ),
             ),
             _gap,
@@ -94,7 +85,9 @@ class MainMenuScreen extends StatelessWidget {
                     ? 'Sfx: On'
                     : 'Sfx: Off',
                 style: GoogleFonts.pressStart2p(
-                    fontSize: 14, color: Colors.teal.shade800),
+                  fontSize: 14,
+                  color: Colors.teal.shade800,
+                ),
               ),
             ),
             // WobblyButton(

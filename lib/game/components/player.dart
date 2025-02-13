@@ -1,7 +1,5 @@
 // ignore_for_file: strict_raw_type, avoid_redundant_argument_values
 
-import 'dart:io';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
@@ -81,7 +79,7 @@ class Player extends SpriteAnimationGroupComponent
     var horizontalDirection = 0;
     var verticalDirection = 0;
 
-    if (game.joystickEnabled && !game.joystick.delta.isZero()) {
+    if (!game.joystick.delta.isZero()) {
       if (game.joystick.isDragged) {
         horizontalDirection = game.joystick.relativeDelta.x.round();
         verticalDirection = game.joystick.relativeDelta.y.round();
@@ -314,7 +312,9 @@ class Player extends SpriteAnimationGroupComponent
     if (hasSpacePressed) {
       if (holdableComponent != null) {
         dropObject(
-            horizontalDirectionFromKeyboard, verticalDirectionFromKeyboard);
+          horizontalDirectionFromKeyboard,
+          verticalDirectionFromKeyboard,
+        );
       }
     }
 
@@ -346,9 +346,8 @@ class Player extends SpriteAnimationGroupComponent
   }
 
   void pickUpObject(PositionComponent holdableComponent) {
-    if (game.joystickEnabled) {
-      game.add(game.actionButton);
-    }
+    game.add(game.actionButton);
+
     this.holdableComponent = holdableComponent;
     if (game.playSounds) {
       FlameAudio.play('collect.wav', volume: game.soundVolume);
@@ -362,9 +361,8 @@ class Player extends SpriteAnimationGroupComponent
 
   void dropObject(int horizontalDirection, int verticalDirection) {
     if (holdableComponent != null) {
-      if (game.joystickEnabled) {
-        game.remove(game.actionButton);
-      }
+      game.remove(game.actionButton);
+
       if (game.playSounds) {
         FlameAudio.play('drop.wav', volume: game.soundVolume);
       }

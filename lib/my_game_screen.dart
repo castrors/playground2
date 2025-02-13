@@ -11,61 +11,62 @@ class MyGameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GameWidget(
-          game: MyGame(
-            playMusic: context.read<SettingsModel>().isMusicOn,
-            playSounds: context.read<SettingsModel>().isSoundOn,
-            joystickEnabled: context.read<SettingsModel>().isJoystickOn,
+    return SafeArea(
+      child: Stack(
+        children: [
+          GameWidget(
+            game: MyGame(
+              playMusic: context.read<SettingsModel>().isMusicOn,
+              playSounds: context.read<SettingsModel>().isSoundOn,
+            ),
           ),
-        ),
-        Positioned(
-          right: 16,
-          child: Row(
-            children: [
-              IconButton(
-                color: Colors.white,
-                icon: const Icon(Icons.info),
-                iconSize: 36,
-                onPressed: () {
-                  HowToPlayDialog.show(context);
-                },
-              ),
-              IconButton(
-                color: Colors.white,
-                icon: const Icon(Icons.close),
-                iconSize: 36,
-                onPressed: () {
-                  showDialog<void>(
-                    context: context,
-                    builder: (BuildContext dialogContext) {
-                      return AlertDialog(
-                        title: const Text('Quit Game'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(dialogContext).pop();
-                            },
-                            child: const Text('Close'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(dialogContext).pop();
-                              GoRouter.of(context).go('/');
-                            },
-                            child: const Text('Quit'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
+          Positioned(
+            right: 16,
+            child: Row(
+              children: [
+                IconButton(
+                  color: Colors.white,
+                  icon: const Icon(Icons.info),
+                  iconSize: 36,
+                  onPressed: () {
+                    HowToPlayDialog.show(context);
+                  },
+                ),
+                IconButton(
+                  color: Colors.white,
+                  icon: const Icon(Icons.close),
+                  iconSize: 36,
+                  onPressed: () {
+                    showDialog<void>(
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        return AlertDialog(
+                          title: const Text('Quit Game'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                              },
+                              child: const Text('Close'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                                GoRouter.of(context).go('/');
+                              },
+                              child: const Text('Quit'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

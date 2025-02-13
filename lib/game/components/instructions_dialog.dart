@@ -43,7 +43,7 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                   : null,
             ),
             SizedBox(
-              width: 350,
+              width: 200,
               height: 200,
               child: PageView(
                 controller: _pageController,
@@ -59,7 +59,7 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                       Flexible(
                         flex: 3,
                         child: SizedBox(
-                          width: 100,
+                          width: 200,
                           height: 200,
                           child: SpriteAnimationWidget.asset(
                             path: 'main_character/walk.png',
@@ -76,7 +76,36 @@ class _InstructionsDialogState extends State<InstructionsDialog> {
                         flex: 7,
                         child: Text(
                           '''
-You have to cross all the objects from the south to the north using this bridge. You can only cross one object at a time. Press SPACE or click in the DROP button if you want to release the object.
+You have to cross all the objects from the south to the north using this bridge. You can only cross one object at a time.
+''',
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 3,
+                        child: SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: SpriteAnimationWidget.asset(
+                            path: 'main_character/idle.png',
+                            data: SpriteAnimationData.sequenced(
+                              amount: 4,
+                              stepTime: 0.15,
+                              textureSize: Vector2(13, 14),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      const Flexible(
+                        flex: 7,
+                        child: Text(
+                          '''
+Press SPACE or DROP button if you want to release the object.
 ''',
                         ),
                       ),
@@ -155,9 +184,9 @@ Remember:
                           child:
                               // SpriteWidget.asset(path: 'enemies/obstacles.png'),
                               SpriteAnimationWidget.asset(
-                            path: 'main_character/idle.png',
+                            path: 'main_character/walk.png',
                             data: SpriteAnimationData.sequenced(
-                              amount: 4,
+                              amount: 8,
                               stepTime: 0.15,
                               textureSize: Vector2(13, 14),
                             ),
@@ -178,7 +207,7 @@ Remember:
             ),
             SizedBox(
               width: 30,
-              child: _currentPage != 3
+              child: _currentPage != 4
                   ? IconButton(
                       icon: const Icon(Icons.arrow_right),
                       onPressed: () {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:playground2/style/responsive_screen.dart';
 import 'package:playground2/style/wobbly_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WinScreen extends StatelessWidget {
   const WinScreen({super.key});
@@ -10,10 +12,66 @@ class WinScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveScreen(
-        squarishMainArea: const Center(
+        squarishMainArea: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('You won!')],
+            children: [
+              Text(
+                'You won!',
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Thank you for playing the game (my first game in Flame).',
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'I hope you enjoyed it! ',
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Please give me feedback on how I can improve it.',
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 12),
+              WobblyButton(
+                onPressed: () =>
+                    _launchUrl('mailto:rodrigodesouzacastro@gmail.com'),
+                child: Text(
+                  'Mail me',
+                  style: GoogleFonts.pressStart2p(
+                    fontSize: 14,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              WobblyButton(
+                onPressed: () =>
+                    _launchUrl('https://linktr.ee/rodrigocastro_o'),
+                child: Text(
+                  'Connect with me',
+                  style: GoogleFonts.pressStart2p(
+                    fontSize: 14,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         rectangularMenuArea: Column(
@@ -23,14 +81,26 @@ class WinScreen extends StatelessWidget {
               onPressed: () {
                 GoRouter.of(context).go('/play');
               },
-              child: const Text('Play Again?'),
+              child: Text(
+                'Play Again?',
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 14,
+                  color: Colors.teal,
+                ),
+              ),
             ),
             _gap,
             WobblyButton(
               onPressed: () {
                 GoRouter.of(context).go('/');
               },
-              child: const Text('Go to Main Menu'),
+              child: Text(
+                'Go to Main Menu',
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 14,
+                  color: Colors.teal,
+                ),
+              ),
             ),
           ],
         ),
@@ -39,4 +109,10 @@ class WinScreen extends StatelessWidget {
   }
 
   static const _gap = SizedBox(height: 10);
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
+  }
 }

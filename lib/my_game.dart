@@ -11,12 +11,10 @@ class MyGame extends FlameGame
   MyGame({
     required this.playMusic,
     required this.playSounds,
-    required this.joystickEnabled,
   });
 
   final bool playMusic;
   final bool playSounds;
-  final bool joystickEnabled;
 
   Player player = Player();
   late Fox fox;
@@ -50,9 +48,7 @@ class MyGame extends FlameGame
       ),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
-    if (joystickEnabled) {
-      add(joystick);
-    }
+    add(joystick);
 
     final textPaint = TextPaint(
       style: const TextStyle(
